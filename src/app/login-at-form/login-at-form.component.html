@@ -23,7 +23,7 @@
       </mat-form-field>
     </div>
     <div>
-      <button mat-raised-button color="primary">Вход</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="email.invalid || password.invalid">Вход</button>
     </div>
     <div>
       <a mat-stroked-button class="link" routerLink="/">Нет аккаунта? Регистрация</a>

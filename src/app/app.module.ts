@@ -11,11 +11,13 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import { LoginAtFormComponent } from './login-at-form/login-at-form.component';
+import { ToDoListComponent } from './to-do-list/to-do-list.component';
 
 
 const appRoutes: Routes = [
   { path: 'reg', component: LoginFormComponent},
   { path: 'login', component: LoginAtFormComponent},
+  { path: 'todo', component: ToDoListComponent}
 
 ];
 
@@ -24,7 +26,8 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     LoginFormComponent,
-    LoginAtFormComponent
+    LoginAtFormComponent,
+    ToDoListComponent
   ],
   imports: [
     BrowserModule,
