@@ -1,3 +1,5 @@
+
+
 .example-container .mat-form-field + .mat-form-field {
   margin-left: 8px;
 }
@@ -15,6 +17,16 @@ input.example-right-align {
   -moz-appearance: textfield;
 }
 
+.body-reg{
+  min-height: 100vh;
+  width: 100%;
+  background: url('../../../src/assets/image/fon-palm.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
 .container-form{
   padding: 60px;
   position: fixed; top: 50%; left: 50%;
@@ -25,7 +37,10 @@ input.example-right-align {
 }
 
 .form-color{
-  background-color: plum;
+  background-color: palegoldenrod;
+  -webkit-box-shadow: 11px 13px 68px 8px rgba(0,0,0,0.75);
+  -moz-box-shadow: 11px 13px 68px 8px rgba(0,0,0,0.75);
+  box-shadow: 11px 13px 68px 8px rgba(0,0,0,0.75);
 }
 
 .w-100{
@@ -33,16 +48,24 @@ input.example-right-align {
 }
 h1{
   text-align: center;
-  color: #fff;
+  color:mediumvioletred;
   margin-bottom: 20px;
   font-weight: 800;
 }
 
 .icons{
-  color:#fff;
+  color:mediumvioletred;
 }
 .link{
   border: none;
   color: mediumvioletred;
   margin-top: 30px;
+}
+
+.color-text-form{
+  color: mediumvioletred;
+}
+.mat-raised-button.mat-primary.mat-button-disabled{
+  color: plum;
+  border: 1px solid plum;
 }

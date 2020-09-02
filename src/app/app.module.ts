@@ -12,14 +12,13 @@ import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import { LoginAtFormComponent } from './login-at-form/login-at-form.component';
 import { ToDoListComponent } from './to-do-list/to-do-list.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatToolbarModule} from '@angular/material/toolbar';
 
 
-const appRoutes: Routes = [
-  { path: 'reg', component: LoginFormComponent},
-  { path: 'login', component: LoginAtFormComponent},
-  { path: 'todo', component: ToDoListComponent}
 
-];
+
 
 
 @NgModule({
@@ -27,9 +26,13 @@ const appRoutes: Routes = [
     AppComponent,
     LoginFormComponent,
     LoginAtFormComponent,
-    ToDoListComponent
+    ToDoListComponent,
+    EditProfileComponent
   ],
   imports: [
+
+    MatToolbarModule,
+    MatSidenavModule,
     BrowserModule,
     BrowserAnimationsModule,
     MatSliderModule,
@@ -39,9 +42,15 @@ const appRoutes: Routes = [
     MatInputModule,
     ReactiveFormsModule,
     MatIconModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot([
+        {path: '', component: LoginFormComponent},
+        {path: 'login', component: LoginAtFormComponent},
+        {path: 'todo', component: ToDoListComponent},
+      {path: 'profile', component: EditProfileComponent}
+    ])
   ],
   providers: [],
   bootstrap: [AppComponent]
+
 })
 export class AppModule { }

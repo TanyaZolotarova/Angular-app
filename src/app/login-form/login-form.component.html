@@ -1,15 +1,17 @@
+<div class="body-reg">
+
 <div class="container-form form-color">
   <form [formGroup]="ReactiveForm">
     <h1>Регистрация</h1>
     <div>
-      <mat-form-field appearance="fill" class="w-100">
-        <mat-label>Name/Login</mat-label>
+      <mat-form-field appearance="fill" class="w-100 color-text-form">
+        <mat-label class="color-text-form">Name/Login</mat-label>
         <input matInput placeholder="Name" [formControl]="name" required>
       </mat-form-field>
     </div>
     <div>
-      <mat-form-field appearance="fill" class="w-100">
-        <mat-label>Enter your email</mat-label>
+      <mat-form-field appearance="fill" class="w-100 color-text-form" >
+        <mat-label class="color-text-form">Enter your email</mat-label>
         <label>
           <input matInput placeholder="pat@example.com" [formControl]="email" required>
         </label>
@@ -17,8 +19,8 @@
       </mat-form-field>
     </div>
     <div>
-      <mat-form-field appearance="fill">
-        <mat-label>Enter your password</mat-label>
+      <mat-form-field appearance="fill" class="color-text-form">
+        <mat-label class="color-text-form">Enter your password</mat-label>
         <label>
           <input matInput [type]="hide ? 'password' : 'text'" [formControl]="password" required>
         </label>
@@ -29,7 +31,7 @@
       </mat-form-field>
     </div>
     <div>
-      <button mat-raised-button color="primary" type="submit" [disabled]="email.invalid || password.invalid">Регистрация</button>
+      <button mat-raised-button color="primary" type="submit" class="btn-login" routerLink="profile" [disabled]="email.invalid || password.invalid">Регистрация</button>
     </div>
     <div>
       <a mat-stroked-button class="link" routerLink="login">Есть акк? Перейти на Логин</a>
@@ -37,4 +39,4 @@
   </form>
 
 </div>
-
+</div>

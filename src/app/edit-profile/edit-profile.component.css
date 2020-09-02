@@ -1,0 +1,87 @@
+
+
+.example-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #eee;
+}
+
+.mat-toolbar.mat-warn {
+  background-color: palegoldenrod;
+  color: #fff;
+}
+
+.mat-toolbar.mat-accent {
+  background: #D81B60;
+  color: #fff;
+}
+
+.mat-sidenav {
+  width: 15% !important;
+}
+
+.mat-drawer {
+  background-color: #D81B60;
+  color: #fff;
+}
+
+@media (min-width: 576px) {
+  mat-sidenav{
+    width: 60% !important;
+  }
+}
+@media (min-width: 768px) {
+  mat-sidenav{
+    width: 40% !important;
+  }
+}
+@media (min-width: 992px) {
+  mat-sidenav{
+    width: 30% !important;
+  }
+
+}
+@media (min-width: 1200px) {
+  mat-sidenav{
+    width: 30% !important;
+  }
+}
+.profile{
+  margin-left: 30px;
+
+}
+
+.color-text-form{
+  color: mediumvioletred;
+}
+.example-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-image: url("../../../src/assets/image/fon-tree.jpg")  ;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.navbar{
+ display: flex;
+  -webkit-flex-direction: column; /* Safari */
+  flex-direction: column;
+}
+.btn-navbar{
+  margin-bottom: 10px;
+}
+
+.mat-toolbar.mat-accent {
+  color: #fff;
+  display: flex;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
