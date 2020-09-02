@@ -15,6 +15,7 @@ import { ToDoListComponent } from './to-do-list/to-do-list.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatCardModule} from '@angular/material/card';
 
 
 
@@ -30,7 +31,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     EditProfileComponent
   ],
   imports: [
-
+    MatCardModule,
     MatToolbarModule,
     MatSidenavModule,
     BrowserModule,

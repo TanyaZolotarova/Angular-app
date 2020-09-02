@@ -1,0 +1,60 @@
+.example-container .mat-form-field + .mat-form-field {
+  margin-left: 50px;
+}
+
+.example-right-align {
+  text-align: right;
+}
+
+input.example-right-align::-webkit-outer-spin-button,
+input.example-right-align::-webkit-inner-spin-button {
+  display: none;
+}
+
+input.example-right-align {
+  -moz-appearance: textfield;
+}
+
+
+.todo-fon{
+  min-height: 100vh;
+  width: 100%;
+  background: url('../../../src/assets/image/fon-child.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  /*background-color: palegoldenrod;*/
+}
+
+.todos{
+  position: fixed; top: 30%; left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  border-radius: 20px;
+
+}
+
+.title-todo{
+
+  font-weight: 800;
+  color: #fff;
+  font-size: 40px;
+}
+.form-todo{
+  margin-top: 7%;
+}
+
+.mat-toolbar {
+  background: rgba(210, 121, 166, 0.28);
+  color: magenta;
+}
+.btn-add-task{
+  margin-left: 10px;
+  background-color: #F06292;
+}
+.color-todo-title{
+  color: #fff;
+  font-weight: 600;
+}
