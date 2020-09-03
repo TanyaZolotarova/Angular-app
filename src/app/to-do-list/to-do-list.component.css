@@ -1,3 +1,7 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+
 .example-container .mat-form-field + .mat-form-field {
   margin-left: 50px;
 }
@@ -28,16 +32,28 @@ input.example-right-align {
 }
 
 .todos{
-  position: fixed; top: 30%; left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  border-radius: 20px;
+  /*position: fixed;*/
+  /*top: 30%;*/
+  /*left: 50%;*/
+  /*!*-webkit-transform: translate(-50%, -50%);*!*/
+  /*!*-ms-transform: translate(-50%, -50%);*!*/
+  /*!*transform: translate(-50%, -50%);*!*/
+  /*!*border-radius: 20px;*!*/
+
+
+  left: 40%;
+  top: 20%;
+  position: fixed;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 20%;
+
 
 }
 
 .title-todo{
-
+text-align: center;
   font-weight: 800;
   color: #fff;
   font-size: 40px;
@@ -58,3 +74,60 @@ input.example-right-align {
   color: #fff;
   font-weight: 600;
 }
+.mat-toolbar {
+  background: rgba(210, 121, 166, 0.28);
+  color: magenta;
+  width: 100%;
+  display: block;
+  height: 50px;
+}
+.btn-add{
+  margin-top: 23px;
+  margin-left: 30px;
+}
+li{
+  list-style-type: none;
+border-bottom: 1px solid #fff;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+.checked-box{
+  margin-right: 10px;
+}
+.font-todo{
+  color: #c2185b;
+  font-size: 18px;
+  font-style: oblique;
+  font-weight: 600;
+}
+.icon-todo{
+  position: absolute;
+  right: 0;
+  color: red;
+  font-size: 24px;
+  cursor: pointer;
+
+}
+.todo{
+  padding: 0;
+}
+
+
+
+.box1 {
+  border: solid 1px #006699;
+  padding: 20px;
+  background: #f3f3f3;
+  border-radius: 5px;
+}
+
+.mat-stroked-button.mat-button-disabled.mat-button-disabled {
+  color: plum;
+  border: 1px solid plum;
+}
+
+
+
+
+
+

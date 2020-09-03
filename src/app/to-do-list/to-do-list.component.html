@@ -1,64 +1,59 @@
 <section class="todo-fon">
-  <p>
-    <mat-toolbar>
-      <button routerLink="profile" mat-icon-button color="primary" aria-label="Example icon button with a home icon">
-        <mat-icon>home</mat-icon>
-      </button>
-    </mat-toolbar>
-  </p>
-<div class="todos">
-  <form class="example-form form-todo">
-    <h1 class="title-todo">My ToDo List</h1>
-
-    <mat-form-field class="example-full-width">
-      <mat-label class="color-todo-title">add task</mat-label>
-      <input matInput [(ngModel)]="title" type="text"
-                     value="" class="">
-    </mat-form-field>
-    <button (click)="addToList()"
-            mat-flat-button color="primary" class="btn-add-task">
-     add
+  <mat-toolbar>
+    <button mat-icon-button color="primary" routerLink="/profile">
+      <mat-icon>home</mat-icon>
     </button>
-  </form>
-
-  <div class=""></div>
+  </mat-toolbar>
 
 
+  <div class="">
+
+    <div class="todos center">
+
+      <h1 class="title-todo">My ToDo List</h1>
+
+      <div>
+        <form (submit)="addTodo($event)">
+          <mat-form-field class="example-full-width">
+            <mat-label class="color-todo-title">add task</mat-label>
+          <input matInput
+            [(ngModel)]="newTodo"
+            (keyup.enter)="newTodo=''"
+            class="textfield"
+            name="newTodo"
+            placeholder="write your task">
+          </mat-form-field>
+          <button mat-stroked-button color="primary" class="btn-add" type="submit" [disabled]="newTodo===''">Add Todo</button>
 
 
-  <div class=""></div>
+        </form>
+      </div>
 
 
-  <div *ngFor="let x of items; let index = index;"
-       class="" style="margin-top: 20px">
+      <ul class="todo">
+        <li *ngFor="let todo of todos; let i=index" >
+<!--          <input type="checkbox" class="checkbox" [(ngModel)]="todo.completed"/>-->
+          <mat-checkbox [(ngModel)]="todo.completed" class="example-margin checked-box"></mat-checkbox>
+            <span class="font-size font-todo" [ngClass]="{'checked': todo.completed}">{{ todo.newTodo }}</span>
+            <span (click)="deleteTodo(i)">
+              <mat-icon class="icon-todo">delete_outline</mat-icon></span>
 
-    <div class=""></div>
 
-    <div class="">
 
-      <mat-card>
-        <!--        <mat-card-title>{{x}}</mat-card-title>-->
-        <mat-card-content>{{x}}</mat-card-content>
-      </mat-card>
-      <!--      <input  (click)="deleteTask(index)" type="button"-->
-      <!--             value="Delete" class="col-2 btn btn-danger">-->
+
+
+        </li>
+      </ul>
+
+      <div class="mtop20">
+        <button mat-stroked-button color="warn" (click)="deleteSelectedTodos()">Delete Selected</button>
+      </div>
+
     </div>
-    <button mat-flat-button (click)="deleteTask(index)"
-            class="btn btn-light text-success margin_top margin_bottom">
-      Delete
-    </button>
-    <button mat-flat-button (click)="deleteTask(index)"
-            class="btn btn-light text-success margin_top margin_bottom margin_left">
-      11
-    </button>
-    <div class="col-3 d-none col-md-3 d-md-block"></div>
   </div>
 
 
-
-
-</div>
-
 </section>
+
 
 

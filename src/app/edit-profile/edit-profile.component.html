@@ -5,9 +5,9 @@
         <span> Мой профиль </span>
       </mat-toolbar>
       <div class="navbar">
-      <button mat-stroked-button class="btn-navbar" routerLink="todo"> My ToDo List</button>
+      <button mat-stroked-button class="btn-navbar" routerLink="/todo"> My ToDo List</button>
      <button mat-stroked-button class="btn-navbar">Настройки</button>
-      <button mat-stroked-button class="btn-navbar">Выход</button>
+      <button mat-stroked-button routerLink="/" class="btn-navbar">Выход</button>
       </div>
     </mat-sidenav>
     <mat-toolbar color="warn">
@@ -16,8 +16,63 @@
       </button>
       <p class="profile color-text-form" > Мой профиль </p>
     </mat-toolbar>
+
     <div class="container">
 
-    </div>
-</mat-sidenav-container>
+      <!--CARD-->
+      <div class="center margin-top">
+        <mat-card class="example-card">
+          <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>Lorem ipsum</mat-card-title>
+            <mat-card-subtitle>profile</mat-card-subtitle>
+          </mat-card-header>
+          <img mat-card-image src="../../assets/image/avaras.jpg" alt="Photo of a Shiba Inu">
 
+          <div class="center-lines">
+
+            <mat-card-content>
+              <form class="example-form">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Name</mat-label>
+                  <input matInput placeholder="Ex. Pizza" value="John">
+                </mat-form-field>
+              </form>
+            </mat-card-content>
+
+            <mat-card-content>
+              <form class="example-form">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Surname</mat-label>
+                  <input matInput placeholder="Ex. Pizza" value="Doe">
+                </mat-form-field>
+              </form>
+            </mat-card-content>
+
+            <mat-card-content>
+              <form class="example-form">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Email</mat-label>
+                  <input matInput placeholder="Ex. Pizza" value="john_doe@mail.com">
+                </mat-form-field>
+              </form>
+            </mat-card-content>
+
+            <mat-card-content>
+              <form class="example-form">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Something else</mat-label>
+                  <input matInput placeholder="Ex. Pizza" value="else something">
+                </mat-form-field>
+              </form>
+            </mat-card-content>
+
+          </div>
+
+
+
+
+
+        </mat-card>
+
+    </div>

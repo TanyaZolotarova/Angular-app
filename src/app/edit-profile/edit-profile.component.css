@@ -10,7 +10,7 @@
 }
 
 .mat-toolbar.mat-warn {
-  background-color: palegoldenrod;
+  background-color: #FCE4EC;
   color: #fff;
 }
 
@@ -85,3 +85,50 @@
   -webkit-justify-content: center;
   justify-content: center;
 }
+
+.center {
+  left: 40%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 30%;
+}
+
+.center-lines{
+  padding: 10px 0;
+  text-align: center;
+}
+.mat-form-field-appearance-legacy .mat-form-field-label {
+  color:#F48FB1!important;
+}
+.mat-form-field-appearance-legacy .mat-form-field-label {
+  color:#F48FB1;
+}
+
+
+.example-card {
+  max-width: 400px;
+}
+
+.example-header-image {
+  background-image: url('../../../src/assets/image/avaras.jpg');
+  background-size: cover;
+}
+
+.margin-top{
+  margin-top: 2%;
+}
+
+
+.black{
+  color: #1a1a1a;
+}
+.mat-card {
+  background-color: palegoldenrod;
+  color: #D81B60;
+}
+
+.mat-card-subtitle {
+  color:#F48FB1;
+}
+
