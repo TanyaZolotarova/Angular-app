@@ -1,5 +1,4 @@
-
-  <mat-sidenav-container class="example-container">
+<mat-sidenav-container class="example-container">
     <mat-sidenav #sidenav mode="over"  opened>
       <mat-toolbar color="accent">
         <span> Мой профиль </span>
@@ -24,10 +23,10 @@
         <mat-card class="example-card">
           <mat-card-header>
             <div mat-card-avatar class="example-header-image"></div>
-            <mat-card-title>Lorem ipsum</mat-card-title>
+            <mat-card-title>{{users[0]?.name}}</mat-card-title>
             <mat-card-subtitle>profile</mat-card-subtitle>
           </mat-card-header>
-          <img mat-card-image src="../../assets/image/avaras.jpg" alt="Photo of a Shiba Inu">
+          <img mat-card-image src="../../../assets/image/avaras.jpg" alt="Photo of a Shiba Inu">
 
           <div class="center-lines">
 
@@ -35,16 +34,7 @@
               <form class="example-form">
                 <mat-form-field class="example-full-width">
                   <mat-label>Name</mat-label>
-                  <input matInput placeholder="Ex. Pizza" value="John">
-                </mat-form-field>
-              </form>
-            </mat-card-content>
-
-            <mat-card-content>
-              <form class="example-form">
-                <mat-form-field class="example-full-width">
-                  <mat-label>Surname</mat-label>
-                  <input matInput placeholder="Ex. Pizza" value="Doe">
+                  <input matInput placeholder="Ex. Pizza" [defaultValue]= users[0]?.name>
                 </mat-form-field>
               </form>
             </mat-card-content>
@@ -53,7 +43,7 @@
               <form class="example-form">
                 <mat-form-field class="example-full-width">
                   <mat-label>Email</mat-label>
-                  <input matInput placeholder="Ex. Pizza" value="john_doe@mail.com">
+                  <input matInput placeholder="Ex. Pizza" [defaultValue]= users[0]?.email>
                 </mat-form-field>
               </form>
             </mat-card-content>
@@ -61,11 +51,16 @@
             <mat-card-content>
               <form class="example-form">
                 <mat-form-field class="example-full-width">
-                  <mat-label>Something else</mat-label>
-                  <input matInput placeholder="Ex. Pizza" value="else something">
+                  <mat-label>Password</mat-label>
+                  <input  [formControl]="password" [type]="hide ? 'password' : 'text'" matInput placeholder="Ex. Pizza" [defaultValue]= users[0]?.password>
+                  <button (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" mat-icon-button
+                matSuffix>
+          <mat-icon class="icons">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
                 </mat-form-field>
               </form>
             </mat-card-content>
+            <button color="primary" mat-raised-button>Edit</button>
 
           </div>
 

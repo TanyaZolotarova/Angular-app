@@ -1,0 +1,61 @@
+<div class="body-reg">
+
+  <div class="container-form form-color">
+
+    <form (ngSubmit)="register()" [formGroup]="registerForm">
+
+      <h1>Регистрация</h1>
+
+      <div>
+        <mat-form-field appearance="fill" class="w-100 color-text-form">
+
+          <mat-label class="color-text-form">Name/Login</mat-label>
+          <input formControlName="name" matInput placeholder="Name" required>
+
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field appearance="fill" class="w-100 color-text-form" >
+
+          <mat-label class="color-text-form">Enter your email</mat-label>
+          <label>
+            <input formControlName="email" matInput placeholder="pat@example.com" required>
+          </label>
+<!--          <mat-error *ngIf="registerForm.controls['email'].hasError('email')">Email not correct</mat-error>-->
+          <mat-error *ngIf="registerForm.controls['email'].invalid">{{getErrorMessageEmail()}}</mat-error>
+
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field appearance="fill" class="color-text-form">
+
+          <mat-label class="color-text-form">Enter your password</mat-label>
+          <label>
+            <input [type]="hide ? 'password' : 'text'" formControlName="password" matInput minlength="8" required>
+          </label>
+
+          <button (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" mat-icon-button
+                  matSuffix>
+            <mat-icon class="icons">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+
+          <mat-error *ngIf="registerForm.controls['password'].invalid">{{getErrorMessagePassword()}}</mat-error>
+
+        </mat-form-field>
+      </div>
+
+      <div>
+        <button [disabled]="registerForm.invalid" class="btn-login" color="primary"
+                mat-raised-button type="submit">Регистрация</button>
+      </div>
+
+      <div>
+        <a class="link" mat-stroked-button routerLink="/">Есть акк? Перейти на Логин</a>
+      </div>
+
+    </form>
+
+  </div>
+</div>

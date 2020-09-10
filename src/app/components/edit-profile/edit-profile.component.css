@@ -63,7 +63,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background-image: url("../../../src/assets/image/fon-tree.jpg")  ;
+  background-image: url("../../../assets/image/fon-tree.jpg")  ;
   background-repeat: no-repeat;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -111,7 +111,7 @@
 }
 
 .example-header-image {
-  background-image: url('../../../src/assets/image/avaras.jpg');
+  background-image: url('../../../assets/image/avaras.jpg');
   background-size: cover;
 }
 
