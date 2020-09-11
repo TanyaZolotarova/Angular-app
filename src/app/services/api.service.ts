@@ -23,4 +23,8 @@ export class ApiService {
     return this.http.post(`${environment.api}/users/login`, body);
   }
 
+  public createTodo( body: { name: string}): Observable<any> {
+    return this.http.post(`${environment.api}/tasks`, body);
+  }
+
 }

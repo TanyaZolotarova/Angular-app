@@ -13,17 +13,16 @@
       <h1 class="title-todo">My ToDo List</h1>
 
       <div>
-        <form (submit)="addTodo($event)">
+        <form  (ngSubmit)="createTodo()" [formGroup]="newTodo">
           <mat-form-field class="example-full-width">
             <mat-label class="color-todo-title">add task</mat-label>
             <input matInput
-                   [(ngModel)]="newTodo"
-                   (keyup.enter)="newTodo=''"
+                  formControlName="name"
                    pattern="^[A-Za-zА-Яа-яЁё]{2,10}"
                    name="newTodo"
                    placeholder="write your task">
           </mat-form-field>
-          <button mat-stroked-button color="primary" class="btn-add" type="submit" [disabled]="newTodo===''">Add Todo
+          <button mat-stroked-button color="primary" class="btn-add" type="submit" [disabled]="newTodo.invalid">Add Todo
           </button>
 
 
@@ -35,7 +34,7 @@
         <li *ngFor="let todo of todos; let i=index">
           <!--          <input type="checkbox" class="checkbox" [(ngModel)]="todo.completed"/>-->
           <mat-checkbox [(ngModel)]="todo.completed" class="example-margin checked-box"></mat-checkbox>
-          <span  class="font-size font-todo" [ngClass]="{'checked': todo.completed}">{{ todo.newTodo }}</span>
+          <span  class="font-size font-todo" [ngClass]="{'checked': todo.completed}">{{ todo.name }}</span>
           <span (click)="deleteTodo(i)">
               <mat-icon class="icon-todo">delete_outline</mat-icon></span>
 
