@@ -19,12 +19,20 @@ export class ApiService {
     return this.http.post(`${environment.api}/users`, body);
   }
 
-   public login( body: { email: string, password: string}): Observable<any> {
+  public login( body: { email: string, password: string}): Observable<any> {
     return this.http.post(`${environment.api}/users/login`, body);
   }
 
-  public createTodo( body: { name: string}): Observable<any> {
+  public createTodo( body: { title: string}): Observable<any> {
     return this.http.post(`${environment.api}/tasks`, body);
+  }
+
+  public getTodos(): Observable<any>{
+    return this.http.get(`${environment.api}/tasks`);
+  }
+
+  public deleteTodo(id: number): Observable<any> {
+    return this.http.delete(`${environment.api}/tasks/${id}`);
   }
 
 }

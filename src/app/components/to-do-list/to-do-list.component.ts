@@ -1,7 +1,12 @@
-import {Component} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ApiService} from '../../services/api.service';
-import {loadConfigurationFromPath} from 'tslint/lib/configuration';
+import {TodoInterface} from '../interfaces/todo.interface';
+import {select, Store} from '@ngrx/store';
+import {TodosListRequestAction} from '../../store/actions/todo.action';
+import {selectProductsItems} from '../../store/selectors/todo.selector';
+import {filter} from 'rxjs/operators';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-to-do-list',
@@ -9,47 +14,63 @@ import {loadConfigurationFromPath} from 'tslint/lib/configuration';
   styleUrls: ['./to-do-list.component.css']
 })
 
-export class ToDoListComponent {
+export class ToDoListComponent implements OnInit, OnDestroy{
 
-  newTodo =  new FormGroup({
-  name: new FormControl('', [Validators.required]),
-    });
+  public subscriptions: Array<Subscription> = [];
 
-  public todos: Array< {name: string, completed: boolean}> = [];
+  public newTodo =  new FormGroup(
+    {
+                 title: new FormControl('', [
+                   Validators.required
+                 ]),
+            }
+    );
 
+  public todos$ = this.store.pipe(select(selectProductsItems), filter(Boolean));
 
-  constructor(    private apiService: ApiService) {
+  public todos: Array<TodoInterface> = [];
+
+  constructor(  private apiService: ApiService,
+                private store: Store) {
 
   }
 
-  // tslint:disable-next-line:typedef
-  // addTodo(event) {
-  //   this.todoObj = {
-  //     newTodo: this.newTodo,
-  //     completed: false
-  //   };
-  //   this.todos.push(this.todoObj);
-  //   this.newTodo = '';
-  //   event.preventDefault();
-  // }
+  public ngOnInit(): void {
+    this.load();
+    this.subscriptions.push(
+      this.todos$.subscribe( (todos: Array<TodoInterface>) => {
+        this.todos = todos;
+      })
+    );
 
-  // tslint:disable-next-line:typedef
-  deleteTodo(index) {
-    this.todos.splice(index, 1);
   }
 
-  // tslint:disable-next-line:typedef
-  deleteSelectedTodos() {
+  public deleteTodo(id: number): void {
+     this.apiService.deleteTodo(id).subscribe( (data) => {
+       this.todos = this.todos.filter( todo => todo.id !== id);
+     });
+  }
+
+  public deleteSelectedTodos(): void {
     for (let i = (this.todos.length - 1); i > -1; i--) {
-      if (this.todos[i].completed) {
+      if (this.todos[i].status) {
         this.todos.splice(i, 1);
       }
     }
   }
 
+  public load() {
+    this.store.dispatch( new TodosListRequestAction());
+  }
+
   public createTodo(): void {
-    this.apiService.createTodo(this.newTodo.getRawValue()).subscribe(data => {
-      console.log(data);
+    this.apiService.createTodo(this.newTodo.getRawValue()).subscribe( (todo) => {
+       this.todos.push(todo);
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach( s => s.unsubscribe());
+
   }
 }

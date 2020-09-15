@@ -34,3 +34,4 @@ export class RouterEffects {
     private location: Location
   ) {}
 }
+
