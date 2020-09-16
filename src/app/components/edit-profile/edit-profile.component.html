@@ -6,7 +6,7 @@
       <div class="navbar">
       <button mat-stroked-button class="btn-navbar" routerLink="/todo"> My ToDo List</button>
      <button mat-stroked-button class="btn-navbar">Настройки</button>
-      <button mat-stroked-button routerLink="/" class="btn-navbar">Выход</button>
+      <button mat-stroked-button (click)="logOut()" class="btn-navbar">Выход</button>
       </div>
     </mat-sidenav>
     <mat-toolbar color="warn">
@@ -23,7 +23,7 @@
         <mat-card class="example-card">
           <mat-card-header>
             <div mat-card-avatar class="example-header-image"></div>
-            <mat-card-title>{{users[0]?.name}}</mat-card-title>
+            <mat-card-title>{{user.name}}</mat-card-title>
             <mat-card-subtitle>profile</mat-card-subtitle>
           </mat-card-header>
           <img mat-card-image src="../../../assets/image/avaras.jpg" alt="Photo of a Shiba Inu">
@@ -34,7 +34,7 @@
               <form class="example-form">
                 <mat-form-field class="example-full-width">
                   <mat-label>Name</mat-label>
-                  <input matInput placeholder="Ex. Pizza" [defaultValue]= users[0]?.name>
+                  <input matInput placeholder="Ex. Pizza" [value]= user.name>
                 </mat-form-field>
               </form>
             </mat-card-content>
@@ -43,7 +43,7 @@
               <form class="example-form">
                 <mat-form-field class="example-full-width">
                   <mat-label>Email</mat-label>
-                  <input matInput placeholder="Ex. Pizza" [defaultValue]= users[0]?.email>
+                  <input matInput placeholder="Ex. Pizza" [value]= user.email>
                 </mat-form-field>
               </form>
             </mat-card-content>
@@ -52,7 +52,8 @@
               <form class="example-form">
                 <mat-form-field class="example-full-width">
                   <mat-label>Password</mat-label>
-                  <input  [formControl]="password" [type]="hide ? 'password' : 'text'" matInput placeholder="Ex. Pizza" [defaultValue]= users[0]?.password>
+                  <input  [type]="hide ? 'password' : 'text'" matInput placeholder="Ex. Pizza"
+                          [value]="user.password">
                   <button (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" mat-icon-button
                 matSuffix>
           <mat-icon class="icons">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -64,10 +65,6 @@
 
           </div>
 
-
-
-
-
         </mat-card>
 
-    </div>
+</div>

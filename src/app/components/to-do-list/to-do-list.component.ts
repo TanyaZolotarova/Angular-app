@@ -49,9 +49,6 @@ export class ToDoListComponent implements OnInit, OnDestroy{
 
   public deleteTodo(id: number): void {
     this.store.dispatch(new TodosRemoveRequestAction(id));
-     // this.apiService.deleteTodo(id).subscribe( (data) => {
-     //   this.todos = this.todos.filter( todo => todo.id !== id);
-     // });
   }
 
   public deleteSelectedTodos(): void {

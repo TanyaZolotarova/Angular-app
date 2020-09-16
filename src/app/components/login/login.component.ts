@@ -1,7 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ApiService} from '../../services/api.service';
 import {Router} from '@angular/router';
+import {select, Store} from '@ngrx/store';
+import {LoginRequestAction} from '../../store/actions/user.actions';
+import {selectActive} from '../../store/selectors/user.selector';
+import {filter} from 'rxjs/operators';
+import {Subscription} from 'rxjs';
 
 
 @Component({
@@ -9,9 +14,11 @@ import {Router} from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
   public  hide = true;
+  private user$ = this.store.pipe(select(selectActive));
+  public subscriptions: Array<Subscription> = [];
 
   public  loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -22,8 +29,10 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private apiService: ApiService,
     private router: Router,
+    private store: Store
   ) {
   }
+
 
 
   getErrorMessageEmail(): string {
@@ -40,19 +49,26 @@ export class LoginComponent implements OnInit {
     return this.loginForm.controls.password.hasError ? 'Not a valid password' : '';
   }
 
-  // tslint:disable-next-line:typedef
-  ngOnInit() {
+
+  public ngOnInit(): void {
+
+    this.subscriptions.push(
+       this.user$.subscribe( (user) => {
+          if (user) {
+            this.router.navigateByUrl('profile');
+          }
+      }),
+
+    );
   }
-
-
 
   public login(): any{
     const body =  this.loginForm.getRawValue();
+    this.store.dispatch(new LoginRequestAction(body));
+  }
 
-    this.apiService.login(body).subscribe( user => {
-      if (user){
-        this.router.navigateByUrl('profile');
-      }
-    });
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach( s => s.unsubscribe());
   }
 }

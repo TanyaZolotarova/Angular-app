@@ -19,7 +19,9 @@ export class ApiService {
     return this.http.post(`${environment.api}/users`, body);
   }
 
+
   public login( body: { email: string, password: string}): Observable<any> {
+    console.log(body);
     return this.http.post(`${environment.api}/users/login`, body);
   }
 
@@ -40,3 +42,6 @@ export class ApiService {
     return this.http.put(`${environment.api}/tasks/${id}/update`, {status});
   }
 }
+
+
+

@@ -9,15 +9,34 @@ export enum UsersActionsTypes {
   USERS_ITEM_ERROR = '[users] item error',
   USERS_ITEM_SUCCESS = '[users] item success',
 
+  LOGIN_REQUEST = '[users] login request',
+  LOGIN_ERROR = '[users] login error',
+  LOGIN_SUCCESS = '[users] login success',
 
+  USERS_UPDATE_REQUEST = '[users] update request',
+  USERS_UPDATE_ERROR = '[users] update error',
+  USERS_UPDATE_SUCCESS = '[users] update success',
 
+  LOGOUT = '[users] logout',
 }
 
 export class UsersListRequestAction implements Action {
   readonly type = UsersActionsTypes.USERS_LIST_REQUEST;
 
+}
 
-  constructor() {
+export class UsersUpdateRequestAction implements Action {
+  readonly type = UsersActionsTypes.USERS_UPDATE_REQUEST;
+
+  constructor(public payload: any) {
+  }
+}
+
+export class LoginRequestAction implements Action {
+  readonly type = UsersActionsTypes.LOGIN_REQUEST;
+
+
+  constructor(public payload: any) {
   }
 }
 
@@ -31,6 +50,20 @@ export class UsersItemRequestAction implements Action {
 
 export class UsersListErrorAction implements Action {
   readonly type = UsersActionsTypes.USERS_LIST_ERROR;
+
+  constructor(public payload: any) {
+  }
+}
+
+export class UsersUpdateErrorAction implements Action {
+  readonly type = UsersActionsTypes.USERS_UPDATE_ERROR;
+
+  constructor(public payload: any) {
+  }
+}
+
+export class LoginErrorAction implements Action {
+  readonly type = UsersActionsTypes.LOGIN_ERROR;
 
   constructor(public payload: any) {
   }
@@ -58,6 +91,24 @@ export class UsersItemSuccessAction implements Action {
   }
 }
 
+export class UsersUpdateSuccessAction implements Action {
+  readonly type = UsersActionsTypes.USERS_UPDATE_SUCCESS;
+
+  constructor(public payload: any) {
+  }
+}
+
+export class LoginSuccessAction implements Action {
+  readonly type = UsersActionsTypes.LOGIN_SUCCESS;
+
+  constructor(public payload: any) {
+  }
+}
+
+export class LogoutAction implements Action {
+  readonly type = UsersActionsTypes.LOGOUT;
+
+}
 
 export type UsersActionsUnion =
   | UsersListRequestAction
@@ -65,4 +116,11 @@ export type UsersActionsUnion =
   | UsersListErrorAction
   | UsersItemErrorAction
   | UsersListSuccessAction
-  | UsersItemSuccessAction;
+  | UsersItemSuccessAction
+  | UsersUpdateRequestAction
+  | UsersUpdateErrorAction
+  | UsersUpdateSuccessAction
+  | LoginErrorAction
+  | LoginRequestAction
+  | LoginSuccessAction
+  | LogoutAction;

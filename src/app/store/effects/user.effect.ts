@@ -11,22 +11,25 @@ import {
   UsersListSuccessAction,
   UsersItemErrorAction,
   UsersItemRequestAction,
-  UsersItemSuccessAction
+  UsersItemSuccessAction,
+  UsersUpdateRequestAction,
+  UsersUpdateErrorAction,
+  UsersUpdateSuccessAction, LoginRequestAction, LoginSuccessAction, LoginErrorAction
 } from '../actions/user.actions';
 
 
 @Injectable()
 export class UsersEffects {
 
-  protected list$ = createEffect(() => this.actions$.pipe(
-    ofType<UsersListRequestAction>(UsersActionsTypes.USERS_LIST_REQUEST),
+  protected login$ = createEffect(() => this.actions$.pipe(
+    ofType<LoginRequestAction>(UsersActionsTypes.LOGIN_REQUEST),
     exhaustMap((action) =>
-      this.appService.getTodos().pipe(
+      this.appService.login(action.payload).pipe(
         map((resp) =>
-          new UsersListSuccessAction(resp)
+          new LoginSuccessAction(resp)
         ),
         catchError((response: any) =>
-          of(new UsersListErrorAction(response)),
+          of(new LoginErrorAction(response)),
         ),
       )
     ),
@@ -41,6 +44,20 @@ export class UsersEffects {
         ),
         catchError((response: any) =>
           of(new UsersItemErrorAction(response)),
+        ),
+      )
+    ),
+  ));
+
+    protected update$ = createEffect(() => this.actions$.pipe(
+    ofType<UsersUpdateRequestAction>(UsersActionsTypes.USERS_UPDATE_REQUEST),
+    exhaustMap((action) =>
+      this.appService.deleteTodo(action.payload).pipe(
+        map((resp) =>
+          new UsersUpdateSuccessAction(resp)
+        ),
+        catchError((response: any) =>
+          of(new UsersUpdateErrorAction(response)),
         ),
       )
     ),

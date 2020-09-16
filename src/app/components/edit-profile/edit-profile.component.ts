@@ -1,7 +1,13 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ApiService} from '../../services/api.service';
 import {UserInterface} from '../interfaces/user.interface';
+import {select, Store} from '@ngrx/store';
+import {LogoutAction} from '../../store/actions/user.actions';
+import {Router} from '@angular/router';
+import {selectActive} from '../../store/selectors/user.selector';
+import {filter} from 'rxjs/operators';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-edit-profile',
@@ -10,8 +16,12 @@ import {UserInterface} from '../interfaces/user.interface';
 })
 
 
+export class EditProfileComponent implements OnInit, OnDestroy {
 
-export class EditProfileComponent implements OnInit {
+  private $user = this.store.pipe(select(selectActive), filter(Boolean));
+  public user: UserInterface;
+
+  public subscriptions: Array<Subscription> = [];
 
   public password = new FormControl('', [Validators.required]);
   hide = true;
@@ -19,15 +29,28 @@ export class EditProfileComponent implements OnInit {
   public users: Array<UserInterface> = [];
 
 
-
-  constructor(private apiService: ApiService) { }
-
-  // tslint:disable-next-line:typedef
-  public ngOnInit() {
-
-    this.apiService.getData().subscribe( (data: Array<UserInterface>) => {
-      this.users = data;
-    });
+  constructor(
+    private apiService: ApiService,
+    private store: Store,
+    private router: Router,
+  ) {
   }
 
+
+  public ngOnInit(): void {
+    this.subscriptions.push(
+      this.$user.subscribe((user: UserInterface) => {
+        this.user = user;
+      })
+    );
+  }
+
+  public logOut(): void {
+    this.store.dispatch(new LogoutAction());
+    this.router.navigateByUrl('/');
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(s => s.unsubscribe());
+   }
 }

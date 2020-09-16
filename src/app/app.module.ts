@@ -24,6 +24,7 @@ import {ApiService} from './services/api.service';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {AppState, metaReducers, reducers} from './store/reducers';
 import {TodosEffects} from './store/effects/todo.effects';
+import {UsersEffects} from './store/effects/user.effect';
 
 const REDUCER_TOKEN = new InjectionToken<ActionReducerMap<AppState>>('root reducer');
 
@@ -60,7 +61,8 @@ const REDUCER_TOKEN = new InjectionToken<ActionReducerMap<AppState>>('root reduc
     HttpClientModule,
     StoreModule.forRoot(REDUCER_TOKEN, {metaReducers}),
     EffectsModule.forRoot([
-      TodosEffects
+      TodosEffects,
+      UsersEffects
     ]),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states

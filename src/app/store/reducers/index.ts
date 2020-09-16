@@ -10,6 +10,7 @@ import {storeFreeze} from 'ngrx-store-freeze';
 import {localStorageSync} from 'ngrx-store-localstorage';
 import {environment} from '../../../environments/environment.prod';
 import {todosReduce} from './todo.reducer';
+import {userReduce} from './user.reducer';
 // import {environment} from '../../../environments/environment';
 // import {reducer} from './app.reducer';
 // import {collectionsReduce} from './collection.reducer';
@@ -50,6 +51,7 @@ export interface AppState{
  * and the current or initial state and return a new immutable state.
  */
 export const reducers: ActionReducerMap<AppState> = {
-    todos: todosReduce
+    todos: todosReduce,
+    users: userReduce
 };
 
