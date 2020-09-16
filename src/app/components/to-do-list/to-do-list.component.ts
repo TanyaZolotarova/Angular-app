@@ -3,10 +3,12 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ApiService} from '../../services/api.service';
 import {TodoInterface} from '../interfaces/todo.interface';
 import {select, Store} from '@ngrx/store';
-import {TodosListRequestAction} from '../../store/actions/todo.action';
-import {selectProductsItems} from '../../store/selectors/todo.selector';
+import {TodosListRequestAction, TodosRemoveRequestAction, TodosUpdateRequestAction} from '../../store/actions/todo.action';
+import {selectTodosItems} from '../../store/selectors/todo.selector';
 import {filter} from 'rxjs/operators';
 import {Subscription} from 'rxjs';
+
+
 
 @Component({
   selector: 'app-to-do-list',
@@ -26,7 +28,7 @@ export class ToDoListComponent implements OnInit, OnDestroy{
             }
     );
 
-  public todos$ = this.store.pipe(select(selectProductsItems), filter(Boolean));
+  public todos$ = this.store.pipe(select(selectTodosItems), filter(Boolean));
 
   public todos: Array<TodoInterface> = [];
 
@@ -46,9 +48,10 @@ export class ToDoListComponent implements OnInit, OnDestroy{
   }
 
   public deleteTodo(id: number): void {
-     this.apiService.deleteTodo(id).subscribe( (data) => {
-       this.todos = this.todos.filter( todo => todo.id !== id);
-     });
+    this.store.dispatch(new TodosRemoveRequestAction(id));
+     // this.apiService.deleteTodo(id).subscribe( (data) => {
+     //   this.todos = this.todos.filter( todo => todo.id !== id);
+     // });
   }
 
   public deleteSelectedTodos(): void {
@@ -59,18 +62,27 @@ export class ToDoListComponent implements OnInit, OnDestroy{
     }
   }
 
-  public load() {
+  public load(): void {
     this.store.dispatch( new TodosListRequestAction());
   }
-
   public createTodo(): void {
     this.apiService.createTodo(this.newTodo.getRawValue()).subscribe( (todo) => {
-       this.todos.push(todo);
+      this.todos = [...this.todos, todo];
+
     });
   }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach( s => s.unsubscribe());
 
+  }
+
+  public setStatus(todo: TodoInterface): void {
+    const status = todo.status;
+    this.store.dispatch(new TodosUpdateRequestAction({id: todo.id, status: !status}));
+
+  //   this.apiService.updateTodo(todo.id, !status).subscribe( (data) => {
+    //   console.log(data);
+    // });
   }
 }

@@ -8,7 +8,16 @@ import {
   TodosActionsTypes,
   TodosListErrorAction,
   TodosListRequestAction,
-  TodosListSuccessAction
+  TodosListSuccessAction,
+  TodosRemoveErrorAction,
+  TodosRemoveRequestAction,
+  TodosRemoveSuccessAction,
+  TodosAddErrorAction,
+  TodosAddSuccessAction,
+  TodosAddRequestAction,
+  TodosUpdateRequestAction,
+  TodosUpdateErrorAction,
+  TodosUpdateSuccessAction
 } from '../actions/todo.action';
 
 
@@ -20,10 +29,52 @@ export class TodosEffects {
     exhaustMap((action) =>
       this.appService.getTodos().pipe(
         map((resp) =>
-              new TodosListSuccessAction(resp)
+          new TodosListSuccessAction(resp)
         ),
         catchError((response: any) =>
           of(new TodosListErrorAction(response)),
+        ),
+      )
+    ),
+  ));
+
+  protected removed$ = createEffect(() => this.actions$.pipe(
+    ofType<TodosRemoveRequestAction>(TodosActionsTypes.TODOS_REMOVE_REQUEST),
+    exhaustMap((action) =>
+      this.appService.deleteTodo(action.payload).pipe(
+        map((resp) =>
+          new TodosRemoveSuccessAction(resp)
+        ),
+        catchError((response: any) =>
+          of(new TodosRemoveErrorAction(response)),
+        ),
+      )
+    ),
+  ));
+
+  protected add$ = createEffect(() => this.actions$.pipe(
+    ofType<TodosAddRequestAction>(TodosActionsTypes.TODOS_ADD_REQUEST),
+    exhaustMap((action) =>
+      this.appService.getTodos().pipe(
+        map((resp) =>
+          new TodosAddSuccessAction(resp)
+        ),
+        catchError((response: any) =>
+          of(new TodosAddErrorAction(response)),
+        ),
+      )
+    ),
+  ));
+
+  protected update$ = createEffect(() => this.actions$.pipe(
+    ofType<TodosUpdateRequestAction>(TodosActionsTypes.TODOS_UPDATE_REQUEST),
+    exhaustMap((action) =>
+      this.appService.updateTodo(action.payload).pipe(
+        map((resp) =>
+          new TodosUpdateSuccessAction(resp)
+        ),
+        catchError((response: any) =>
+          of(new TodosUpdateErrorAction(response)),
         ),
       )
     ),

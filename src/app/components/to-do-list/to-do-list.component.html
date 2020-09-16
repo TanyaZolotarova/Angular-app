@@ -32,8 +32,7 @@
 
       <ul class="todo">
         <li *ngFor="let todo of todos">
-          <!--          <input type="checkbox" class="checkbox" [(ngModel)]="todo.completed"/>-->
-          <mat-checkbox [(ngModel)]="todo.status" class="example-margin checked-box"></mat-checkbox>
+          <mat-checkbox (click)="setStatus(todo)" [checked]="todo.status" class="example-margin checked-box"></mat-checkbox>
 
           <span  class="font-size font-todo" [ngClass]="{'checked': todo.status}">{{ todo.title }}</span>
           <span (click)="deleteTodo(todo.id)">

@@ -1,4 +1,4 @@
-import {ActionReducer, ActionReducerMap, MetaReducer,} from '@ngrx/store';
+import {ActionReducer, ActionReducerMap, MetaReducer} from '@ngrx/store';
 
 /**
  * storeFreeze prevents state from being mutated. When mutation occurs, an
@@ -38,7 +38,8 @@ export const metaReducers: Array<MetaReducer<any, any>> = environment.production
   ? [localStorageSyncReducer]
   : [localStorageSyncReducer, storeFreeze];
 
-export interface AppState {
+// tslint:disable-next-line:no-empty-interface
+export interface AppState{
   // router: fromRouter.RouterReducerState;
   // app: appReducer.State;
 }

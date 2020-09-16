@@ -1,5 +1,8 @@
 export interface TodoInterface {
   id?: number;
   title: string;
-  status?: boolean;
+  status: boolean;
+  createdAt?: string;
+  updatedAt?: string;
+  userId?: number;
 }

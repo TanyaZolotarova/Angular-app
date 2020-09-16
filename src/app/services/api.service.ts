@@ -35,4 +35,8 @@ export class ApiService {
     return this.http.delete(`${environment.api}/tasks/${id}`);
   }
 
+  public updateTodo(data): Observable<any> {
+    const {id, status} = data;
+    return this.http.put(`${environment.api}/tasks/${id}/update`, {status});
+  }
 }

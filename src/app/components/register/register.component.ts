@@ -1,6 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ApiService} from '../../services/api.service';
+import {Subscription} from 'rxjs';
+import {select, Store} from '@ngrx/store';
+import {filter} from 'rxjs/operators';
+import {selectUsersItems} from '../../store/selectors/user.selector';
+import {TodoInterface} from '../interfaces/todo.interface';
+import {UserInterface} from '../interfaces/user.interface';
+import {UsersListRequestAction} from '../../store/actions/user.actions';
+
+
+
 
 @Component({
   selector: 'app-register',
@@ -10,6 +20,8 @@ import {ApiService} from '../../services/api.service';
 
 export class RegisterComponent implements OnInit {
 
+  public subscriptions: Array<Subscription> = [];
+
   public hide = true;
 
   public registerForm = new FormGroup({
@@ -18,9 +30,15 @@ export class RegisterComponent implements OnInit {
     name: new FormControl('', [Validators.required]),
   });
 
+  public users$ = this.store.pipe(select(selectUsersItems), filter(Boolean));
+  public users: Array<UserInterface> = [];
+
+
+
 
   constructor(
-    private apiService: ApiService
+    private apiService: ApiService,
+    private store: Store
   ) {
   }
 
@@ -40,6 +58,16 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.load();
+    this.subscriptions.push(
+      this.users$.subscribe( (todos: Array<TodoInterface>) => {
+        this.users = this.users;
+      })
+    );
+  }
+
+  public load(): void {
+    this.store.dispatch( new UsersListRequestAction());
   }
 
   public register(): void {

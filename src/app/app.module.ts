@@ -22,7 +22,7 @@ import {EffectsModule} from '@ngrx/effects';
 import {HttpClientModule} from '@angular/common/http';
 import {ApiService} from './services/api.service';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
-import {AppState, reducers} from './store/reducers';
+import {AppState, metaReducers, reducers} from './store/reducers';
 import {TodosEffects} from './store/effects/todo.effects';
 
 const REDUCER_TOKEN = new InjectionToken<ActionReducerMap<AppState>>('root reducer');
@@ -58,7 +58,7 @@ const REDUCER_TOKEN = new InjectionToken<ActionReducerMap<AppState>>('root reduc
     ReactiveFormsModule,
     MatIconModule,
     HttpClientModule,
-    StoreModule.forRoot(REDUCER_TOKEN, {}),
+    StoreModule.forRoot(REDUCER_TOKEN, {metaReducers}),
     EffectsModule.forRoot([
       TodosEffects
     ]),
