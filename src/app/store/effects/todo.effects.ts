@@ -27,7 +27,7 @@ export class TodosEffects {
   protected list$ = createEffect(() => this.actions$.pipe(
     ofType<TodosListRequestAction>(TodosActionsTypes.TODOS_LIST_REQUEST),
     exhaustMap((action) =>
-      this.appService.getTodos().pipe(
+      this.appService.me().pipe(
         map((resp) =>
           new TodosListSuccessAction(resp)
         ),

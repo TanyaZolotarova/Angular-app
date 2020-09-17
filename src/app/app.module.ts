@@ -25,6 +25,7 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {AppState, metaReducers, reducers} from './store/reducers';
 import {TodosEffects} from './store/effects/todo.effects';
 import {UsersEffects} from './store/effects/user.effect';
+import {AuthGuard} from './services/auth.guard';
 
 const REDUCER_TOKEN = new InjectionToken<ActionReducerMap<AppState>>('root reducer');
 
@@ -71,12 +72,15 @@ const REDUCER_TOKEN = new InjectionToken<ActionReducerMap<AppState>>('root reduc
     RouterModule.forRoot([
         {path: '', component: LoginComponent},
         {path: 'register', component: RegisterComponent},
-        {path: 'todo', component: ToDoListComponent},
-        {path: 'profile', component: EditProfileComponent}
+        {path: 'todo', component: ToDoListComponent, canActivate: [AuthGuard]},
+        {path: 'profile', component: EditProfileComponent, canActivate: [
+            AuthGuard
+          ]}
     ]),
   ],
   providers: [
     ApiService,
+    AuthGuard,
     {
       provide: REDUCER_TOKEN,
       useValue: reducers,

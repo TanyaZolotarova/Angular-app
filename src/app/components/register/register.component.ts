@@ -1,13 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ApiService} from '../../services/api.service';
 import {Subscription} from 'rxjs';
 import {select, Store} from '@ngrx/store';
 import {filter} from 'rxjs/operators';
-import {selectUsersItems} from '../../store/selectors/user.selector';
-import {TodoInterface} from '../interfaces/todo.interface';
+import {selectActive, selectRegister, selectUsersItems} from '../../store/selectors/user.selector';
 import {UserInterface} from '../interfaces/user.interface';
-import {UsersListRequestAction} from '../../store/actions/user.actions';
+import {ClearRegisterAction, RegisterRequestAction, UsersListRequestAction} from '../../store/actions/user.actions';
+import {Router} from '@angular/router';
+
 
 
 
@@ -18,7 +19,7 @@ import {UsersListRequestAction} from '../../store/actions/user.actions';
   styleUrls: ['./register.component.css']
 })
 
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
 
   public subscriptions: Array<Subscription> = [];
 
@@ -31,14 +32,15 @@ export class RegisterComponent implements OnInit {
   });
 
   public users$ = this.store.pipe(select(selectUsersItems), filter(Boolean));
+  public register$ = this.store.pipe(select(selectRegister));
   public users: Array<UserInterface> = [];
-
 
 
 
   constructor(
     private apiService: ApiService,
-    private store: Store
+    private store: Store,
+    private router: Router,
   ) {
   }
 
@@ -59,9 +61,20 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.load();
+
     this.subscriptions.push(
-      this.users$.subscribe( (todos: Array<TodoInterface>) => {
-        this.users = this.users;
+
+      this.users$.subscribe( (users) => {
+          if (users) {
+            this.router.navigateByUrl('profile');
+          }
+      }),
+
+      this.register$.subscribe( status => {
+        if (status === 'success') {
+          this.store.dispatch(new ClearRegisterAction());
+          this.router.navigateByUrl('/');
+        }
       })
     );
   }
@@ -72,6 +85,10 @@ export class RegisterComponent implements OnInit {
 
   public register(): void {
     const body = this.registerForm.getRawValue();
-    this.apiService.createUser(body).subscribe(console.log);
+    this.store.dispatch(new RegisterRequestAction(body));
+  }
+
+  ngOnDestroy(): void {
+       this.subscriptions.forEach( s => s.unsubscribe());
   }
 }

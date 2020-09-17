@@ -32,7 +32,8 @@ const status = (state = null, action: TodosActionsUnion) => {
 const items = (state = null, action: TodosActionsUnion) => {
   switch (action.type) {
     case TodosActionsTypes.TODOS_LIST_SUCCESS:
-      return action.payload;
+      console.log(action.payload.tasks);
+      return action.payload.tasks;
 
     case TodosActionsTypes.TODOS_REMOVE_SUCCESS:
       console.log(action.payload);

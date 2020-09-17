@@ -6,16 +6,20 @@ import {catchError, exhaustMap, map, tap} from 'rxjs/operators';
 import {ApiService} from '../../services/api.service';
 import {
   UsersActionsTypes,
-  UsersListErrorAction,
-  UsersListRequestAction,
-  UsersListSuccessAction,
   UsersItemErrorAction,
   UsersItemRequestAction,
   UsersItemSuccessAction,
   UsersUpdateRequestAction,
   UsersUpdateErrorAction,
-  UsersUpdateSuccessAction, LoginRequestAction, LoginSuccessAction, LoginErrorAction
+  UsersUpdateSuccessAction,
+  LoginRequestAction,
+  LoginSuccessAction,
+  LoginErrorAction,
+  RegisterRequestAction,
+  RegisterSuccessAction,
+  RegisterErrorAction
 } from '../actions/user.actions';
+import {Router} from '@angular/router';
 
 
 @Injectable()
@@ -30,6 +34,20 @@ export class UsersEffects {
         ),
         catchError((response: any) =>
           of(new LoginErrorAction(response)),
+        ),
+      )
+    ),
+  ));
+
+    protected register$ = createEffect(() => this.actions$.pipe(
+    ofType<RegisterRequestAction>(UsersActionsTypes.REGISTER_REQUEST),
+    exhaustMap((action) =>
+      this.appService.register(action.payload).pipe(
+        map((resp) =>
+          new RegisterSuccessAction(resp)
+        ),
+        catchError((response: any) =>
+          of(new RegisterErrorAction(response)),
         ),
       )
     ),

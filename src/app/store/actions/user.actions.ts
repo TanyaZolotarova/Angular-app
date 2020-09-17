@@ -13,10 +13,15 @@ export enum UsersActionsTypes {
   LOGIN_ERROR = '[users] login error',
   LOGIN_SUCCESS = '[users] login success',
 
+  REGISTER_REQUEST = '[users] register request',
+  REGISTER_ERROR = '[users] register error',
+  REGISTER_SUCCESS = '[users] register success',
+
   USERS_UPDATE_REQUEST = '[users] update request',
   USERS_UPDATE_ERROR = '[users] update error',
   USERS_UPDATE_SUCCESS = '[users] update success',
 
+  CLEAR_REGISTER_STATE = '[users] clear register state',
   LOGOUT = '[users] logout',
 }
 
@@ -34,6 +39,14 @@ export class UsersUpdateRequestAction implements Action {
 
 export class LoginRequestAction implements Action {
   readonly type = UsersActionsTypes.LOGIN_REQUEST;
+
+
+  constructor(public payload: any) {
+  }
+}
+
+export class RegisterRequestAction implements Action {
+  readonly type = UsersActionsTypes.REGISTER_REQUEST;
 
 
   constructor(public payload: any) {
@@ -64,6 +77,13 @@ export class UsersUpdateErrorAction implements Action {
 
 export class LoginErrorAction implements Action {
   readonly type = UsersActionsTypes.LOGIN_ERROR;
+
+  constructor(public payload: any) {
+  }
+}
+
+export class RegisterErrorAction implements Action {
+  readonly type = UsersActionsTypes.REGISTER_ERROR;
 
   constructor(public payload: any) {
   }
@@ -105,8 +125,19 @@ export class LoginSuccessAction implements Action {
   }
 }
 
+export class RegisterSuccessAction implements Action {
+  readonly type = UsersActionsTypes.REGISTER_SUCCESS;
+
+  constructor(public payload: any) {
+  }
+}
+
 export class LogoutAction implements Action {
   readonly type = UsersActionsTypes.LOGOUT;
+
+}
+export class ClearRegisterAction implements Action {
+  readonly type = UsersActionsTypes.CLEAR_REGISTER_STATE;
 
 }
 
@@ -123,4 +154,8 @@ export type UsersActionsUnion =
   | LoginErrorAction
   | LoginRequestAction
   | LoginSuccessAction
-  | LogoutAction;
+  | LogoutAction
+  | RegisterRequestAction
+  | RegisterErrorAction
+  | RegisterSuccessAction
+  | ClearRegisterAction;

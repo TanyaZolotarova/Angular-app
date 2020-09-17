@@ -1,11 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ApiService} from '../../services/api.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {select, Store} from '@ngrx/store';
 import {LoginRequestAction} from '../../store/actions/user.actions';
 import {selectActive} from '../../store/selectors/user.selector';
-import {filter} from 'rxjs/operators';
 import {Subscription} from 'rxjs';
 
 
@@ -16,11 +15,11 @@ import {Subscription} from 'rxjs';
 })
 export class LoginComponent implements OnInit, OnDestroy {
 
-  public  hide = true;
+  public hide = true;
   private user$ = this.store.pipe(select(selectActive));
   public subscriptions: Array<Subscription> = [];
 
-  public  loginForm = new FormGroup({
+  public loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
   });
@@ -29,10 +28,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private apiService: ApiService,
     private router: Router,
-    private store: Store
+    private store: Store,
+    private route: ActivatedRoute
   ) {
   }
-
 
 
   getErrorMessageEmail(): string {
@@ -42,6 +41,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     return this.loginForm.controls.email.hasError ? 'Not a valid email' : '';
   }
+
   getErrorMessagePassword(): string {
     if (this.loginForm.controls.password.hasError('required')) {
       return 'You must enter a value';
@@ -52,23 +52,23 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
 
-    this.subscriptions.push(
-       this.user$.subscribe( (user) => {
-          if (user) {
-            this.router.navigateByUrl('profile');
-          }
-      }),
 
+    this.subscriptions.push(
+      this.user$.subscribe((user) => {
+        if (user) {
+          this.router.navigateByUrl('profile');
+        }
+      }),
     );
   }
 
-  public login(): any{
-    const body =  this.loginForm.getRawValue();
+  public login(): any {
+    const body = this.loginForm.getRawValue();
     this.store.dispatch(new LoginRequestAction(body));
   }
 
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach( s => s.unsubscribe());
+    this.subscriptions.forEach(s => s.unsubscribe());
   }
 }

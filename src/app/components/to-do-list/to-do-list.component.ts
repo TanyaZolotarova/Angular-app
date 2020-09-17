@@ -7,7 +7,8 @@ import {TodosListRequestAction, TodosRemoveRequestAction, TodosUpdateRequestActi
 import {selectTodosItems} from '../../store/selectors/todo.selector';
 import {filter} from 'rxjs/operators';
 import {Subscription} from 'rxjs';
-
+import {selectActive} from '../../store/selectors/user.selector';
+import {UserInterface} from '../interfaces/user.interface';
 
 
 @Component({
@@ -16,35 +17,44 @@ import {Subscription} from 'rxjs';
   styleUrls: ['./to-do-list.component.css']
 })
 
-export class ToDoListComponent implements OnInit, OnDestroy{
+export class ToDoListComponent implements OnInit, OnDestroy {
+  private $user = this.store.pipe(select(selectActive), filter(Boolean));
+  public user: UserInterface;
 
   public subscriptions: Array<Subscription> = [];
 
-  public newTodo =  new FormGroup(
+  public newTodo = new FormGroup(
     {
-                 title: new FormControl('', [
-                   Validators.required
-                 ]),
-            }
-    );
+      title: new FormControl('', [
+        Validators.required
+      ]),
+    }
+  );
 
+  public users: Array<UserInterface> = [];
   public todos$ = this.store.pipe(select(selectTodosItems), filter(Boolean));
 
   public todos: Array<TodoInterface> = [];
 
-  constructor(  private apiService: ApiService,
-                private store: Store) {
+  constructor(private apiService: ApiService,
+              private store: Store) {
 
   }
 
   public ngOnInit(): void {
     this.load();
     this.subscriptions.push(
-      this.todos$.subscribe( (todos: Array<TodoInterface>) => {
+      this.todos$.subscribe((todos: Array<TodoInterface>) => {
+        console.log(todos);
         this.todos = todos;
+
       })
     );
-
+    this.subscriptions.push(
+      this.$user.subscribe((user: UserInterface) => {
+        this.user = user;
+      })
+    );
   }
 
   public deleteTodo(id: number): void {
@@ -60,17 +70,20 @@ export class ToDoListComponent implements OnInit, OnDestroy{
   }
 
   public load(): void {
-    this.store.dispatch( new TodosListRequestAction());
+    this.store.dispatch(new TodosListRequestAction());
   }
-  public createTodo(): void {
-    this.apiService.createTodo(this.newTodo.getRawValue()).subscribe( (todo) => {
-      this.todos = [...this.todos, todo];
 
+  public createTodo(): void {
+
+    this.apiService.createTodo({...this.newTodo.getRawValue(), userId: this.user.id}).subscribe((todo) => {
+      this.todos = [...this.todos, todo];
     });
+
+    this.newTodo.reset();
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach( s => s.unsubscribe());
+    this.subscriptions.forEach(s => s.unsubscribe());
 
   }
 
@@ -78,7 +91,7 @@ export class ToDoListComponent implements OnInit, OnDestroy{
     const status = todo.status;
     this.store.dispatch(new TodosUpdateRequestAction({id: todo.id, status: !status}));
 
-  //   this.apiService.updateTodo(todo.id, !status).subscribe( (data) => {
+    //   this.apiService.updateTodo(todo.id, !status).subscribe( (data) => {
     //   console.log(data);
     // });
   }
