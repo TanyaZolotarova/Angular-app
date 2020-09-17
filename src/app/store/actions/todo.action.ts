@@ -38,8 +38,7 @@ export class TodosUpdateRequestAction implements Action {
 export class TodosAddRequestAction implements Action {
   readonly type = TodosActionsTypes.TODOS_ADD_REQUEST;
 
-
-  constructor() {
+  constructor(public payload: any) {
   }
 }
 

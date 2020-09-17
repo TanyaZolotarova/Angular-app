@@ -29,24 +29,19 @@ const status = (state = null, action: TodosActionsUnion) => {
   }
 };
 
-const items = (state = null, action: TodosActionsUnion) => {
+const items = (state = [], action: TodosActionsUnion) => {
   switch (action.type) {
     case TodosActionsTypes.TODOS_LIST_SUCCESS:
-      console.log(action.payload.tasks);
       return action.payload.tasks;
 
     case TodosActionsTypes.TODOS_REMOVE_SUCCESS:
-      console.log(action.payload);
-      return state;
-    case TodosActionsTypes.TODOS_UPDATE_SUCCESS:
-    case TodosActionsTypes.TODOS_ADD_SUCCESS:
+      return [...state].filter(item => item.id !== +action.payload);
 
-        return state;
+    case TodosActionsTypes.TODOS_ADD_SUCCESS:
+      return [...state, action.payload];
+
     case TodosActionsTypes.TODOS_LIST_REQUEST:
-    case TodosActionsTypes.TODOS_REMOVE_REQUEST:
-    case TodosActionsTypes.TODOS_UPDATE_REQUEST:
-    case TodosActionsTypes.TODOS_ADD_REQUEST:
-      return null;
+      return [];
     default:
       return state;
   }

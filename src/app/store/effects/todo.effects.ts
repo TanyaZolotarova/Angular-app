@@ -24,7 +24,7 @@ import {
 @Injectable()
 export class TodosEffects {
 
-  protected list$ = createEffect(() => this.actions$.pipe(
+  protected me$ = createEffect(() => this.actions$.pipe(
     ofType<TodosListRequestAction>(TodosActionsTypes.TODOS_LIST_REQUEST),
     exhaustMap((action) =>
       this.appService.me().pipe(
@@ -55,7 +55,7 @@ export class TodosEffects {
   protected add$ = createEffect(() => this.actions$.pipe(
     ofType<TodosAddRequestAction>(TodosActionsTypes.TODOS_ADD_REQUEST),
     exhaustMap((action) =>
-      this.appService.getTodos().pipe(
+      this.appService.createTodo(action.payload).pipe(
         map((resp) =>
           new TodosAddSuccessAction(resp)
         ),

@@ -31,15 +31,6 @@
           <div class="center-lines">
 
             <mat-card-content>
-              <form class="example-form" [formGroup]="">
-                <mat-form-field class="example-full-width">
-                  <mat-label>Name</mat-label>
-                  <input matInput placeholder="Ex. Pizza" [value]= user.name>
-                </mat-form-field>
-              </form>
-            </mat-card-content>
-
-            <mat-card-content>
               <form class="example-form">
                 <mat-form-field class="example-full-width">
                   <mat-label>Email</mat-label>
@@ -48,19 +39,7 @@
               </form>
             </mat-card-content>
 
-            <mat-card-content>
-              <form class="example-form">
-                <mat-form-field class="example-full-width">
-                  <mat-label>Password</mat-label>
-                  <input  [type]="hide ? 'password' : 'text'" matInput placeholder="Ex. Pizza"
-                          [value]="user.password">
-                  <button (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" mat-icon-button
-                matSuffix>
-          <mat-icon class="icons">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-        </button>
-                </mat-form-field>
-              </form>
-            </mat-card-content>
+
             <button color="primary" mat-raised-button>Edit</button>
 
           </div>

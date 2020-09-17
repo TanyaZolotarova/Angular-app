@@ -3,7 +3,12 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ApiService} from '../../services/api.service';
 import {TodoInterface} from '../interfaces/todo.interface';
 import {select, Store} from '@ngrx/store';
-import {TodosListRequestAction, TodosRemoveRequestAction, TodosUpdateRequestAction} from '../../store/actions/todo.action';
+import {
+  TodosAddRequestAction,
+  TodosListRequestAction,
+  TodosRemoveRequestAction,
+  TodosUpdateRequestAction
+} from '../../store/actions/todo.action';
 import {selectTodosItems} from '../../store/selectors/todo.selector';
 import {filter} from 'rxjs/operators';
 import {Subscription} from 'rxjs';
@@ -61,23 +66,23 @@ export class ToDoListComponent implements OnInit, OnDestroy {
     this.store.dispatch(new TodosRemoveRequestAction(id));
   }
 
-  public deleteSelectedTodos(): void {
-    for (let i = (this.todos.length - 1); i > -1; i--) {
-      if (this.todos[i].status) {
-        this.todos.splice(i, 1);
-      }
-    }
-  }
+  // public deleteSelectedTodos(): void {
+  //   for (let i = (this.todos.length - 1); i > -1; i--) {
+  //     if (this.todos[i].status) {
+  //       this.todos.splice(i, 1);
+  //     }
+  //   }
+  // }
 
   public load(): void {
     this.store.dispatch(new TodosListRequestAction());
   }
 
   public createTodo(): void {
-
-    this.apiService.createTodo({...this.newTodo.getRawValue(), userId: this.user.id}).subscribe((todo) => {
-      this.todos = [...this.todos, todo];
-    });
+    this.store.dispatch(new TodosAddRequestAction({...this.newTodo.getRawValue(), userId: this.user.id}));
+    // this.apiService.createTodo({...this.newTodo.getRawValue(), userId: this.user.id}).subscribe((todo) => {
+    //   this.todos = [...this.todos, todo];
+    // });
 
     this.newTodo.reset();
   }
