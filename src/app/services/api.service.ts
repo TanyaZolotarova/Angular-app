@@ -8,6 +8,7 @@ import {UserInterface} from '../components/interfaces/user.interface';
 export interface AuthResponse {
   user: UserInterface;
   expiresIn: string;
+  token: string;
 }
 
 
@@ -35,7 +36,7 @@ export class ApiService {
   private setToken(response: AuthResponse | null): void {
     if (response) {
       const expDate = new Date(new Date().getTime() + +response.expiresIn * 1000);
-      localStorage.setItem('auth-token', response.user.token);
+      localStorage.setItem('auth-token', response.token);
       localStorage.setItem('auth-token-exp', expDate.toString());
     } else {
       localStorage.removeItem('auth-token');
@@ -98,6 +99,11 @@ export class ApiService {
   public updateTodo(data): Observable<any> {
     const {id, status} = data;
     return this.http.put(`${environment.api}/tasks/${id}/update`, {status});
+  }
+
+  public updateUser(user): Observable<any> {
+    const {id, name, email} = user;
+    return this.http.put(`${environment.api}/users/${id}/update`, {name, email});
   }
 }
 

@@ -13,14 +13,15 @@
       <h1 class="title-todo">My ToDo List</h1>
 
       <div>
-        <form  (ngSubmit)="createTodo()" [formGroup]="newTodo">
+        <form  (ngSubmit)="createTodo()" [formGroup]="newTodo" class="form-todo">
           <mat-form-field class="example-full-width">
             <mat-label class="color-todo-title">add task</mat-label>
             <input matInput
                   formControlName="title"
                    pattern="^[A-Za-zА-Яа-яЁё]{2,20}"
                    name="newTodo"
-                   placeholder="write your task">
+                   placeholder="write your task"
+            class="input-todo">
           </mat-form-field>
           <button mat-stroked-button color="primary" class="btn-add" type="submit" [disabled]="newTodo.invalid">Add Todo
           </button>

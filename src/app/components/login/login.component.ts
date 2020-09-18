@@ -64,6 +64,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   public login(): any {
     const body = this.loginForm.getRawValue();
+    console.log(body);
     this.store.dispatch(new LoginRequestAction(body));
   }
 

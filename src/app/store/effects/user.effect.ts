@@ -14,6 +14,7 @@ import {
   UsersUpdateSuccessAction,
   LoginRequestAction,
   LoginSuccessAction,
+
   LoginErrorAction,
   RegisterRequestAction,
   RegisterSuccessAction,
@@ -39,7 +40,7 @@ export class UsersEffects {
     ),
   ));
 
-    protected register$ = createEffect(() => this.actions$.pipe(
+  protected register$ = createEffect(() => this.actions$.pipe(
     ofType<RegisterRequestAction>(UsersActionsTypes.REGISTER_REQUEST),
     exhaustMap((action) =>
       this.appService.register(action.payload).pipe(
@@ -67,10 +68,24 @@ export class UsersEffects {
     ),
   ));
 
-    protected update$ = createEffect(() => this.actions$.pipe(
+  //   protected update$ = createEffect(() => this.actions$.pipe(
+  //   ofType<UsersUpdateRequestAction>(UsersActionsTypes.USERS_UPDATE_REQUEST),
+  //   exhaustMap((action) =>
+  //     this.appService.deleteTodo(action.payload).pipe(
+  //       map((resp) =>
+  //         new UsersUpdateSuccessAction(resp)
+  //       ),
+  //       catchError((response: any) =>
+  //         of(new UsersUpdateErrorAction(response)),
+  //       ),
+  //     )
+  //   ),
+  // ));
+
+  protected update$ = createEffect(() => this.actions$.pipe(
     ofType<UsersUpdateRequestAction>(UsersActionsTypes.USERS_UPDATE_REQUEST),
     exhaustMap((action) =>
-      this.appService.deleteTodo(action.payload).pipe(
+      this.appService.updateUser(action.payload).pipe(
         map((resp) =>
           new UsersUpdateSuccessAction(resp)
         ),

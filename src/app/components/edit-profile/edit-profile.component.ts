@@ -3,7 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ApiService} from '../../services/api.service';
 import {UserInterface} from '../interfaces/user.interface';
 import {select, Store} from '@ngrx/store';
-import {LogoutAction} from '../../store/actions/user.actions';
+import {LogoutAction, UsersUpdateRequestAction} from '../../store/actions/user.actions';
 import {Router} from '@angular/router';
 import {selectActive} from '../../store/selectors/user.selector';
 import {filter} from 'rxjs/operators';
@@ -27,6 +27,8 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   hide = true;
   ReactiveForm: FormGroup;
   public users: Array<UserInterface> = [];
+  public email: any;
+  public name: any;
 
 
   constructor(
@@ -41,6 +43,8 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.$user.subscribe((user: UserInterface) => {
         this.user = user;
+        this.name = user.name;
+        this.email = user.email;
       })
     );
   }
@@ -50,7 +54,11 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl('/');
   }
 
+  public updateUser(): void {
+     this.store.dispatch(new UsersUpdateRequestAction({id: this.user.id, name: this.name, email: this.email }));
+  }
+
   ngOnDestroy(): void {
     this.subscriptions.forEach(s => s.unsubscribe());
-   }
+  }
 }

@@ -1,5 +1,4 @@
 
-
 .example-container {
   position: absolute;
   top: 0;
@@ -29,53 +28,60 @@
 }
 
 @media (min-width: 576px) {
-  mat-sidenav{
+  mat-sidenav {
     width: 60% !important;
   }
 }
+
 @media (min-width: 768px) {
-  mat-sidenav{
+  mat-sidenav {
     width: 40% !important;
   }
 }
+
 @media (min-width: 992px) {
-  mat-sidenav{
+  mat-sidenav {
     width: 30% !important;
   }
 
 }
+
 @media (min-width: 1200px) {
-  mat-sidenav{
+  mat-sidenav {
     width: 30% !important;
   }
 }
-.profile{
-  margin-left: 30px;
 
+.profile {
+  margin-left: 30px;
+  margin-top: 15px;
 }
 
-.color-text-form{
+.color-text-form {
   color: mediumvioletred;
 }
+
 .example-container {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  background-image: url("../../../assets/image/fon-tree.jpg")  ;
+  background-image: url("../../../assets/image/fon-tree.jpg");
   background-repeat: no-repeat;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
 }
-.navbar{
- display: flex;
+
+.navbar {
+  display: flex;
   -webkit-flex-direction: column; /* Safari */
   flex-direction: column;
 }
-.btn-navbar{
+
+.btn-navbar {
   margin-bottom: 10px;
 }
 
@@ -94,15 +100,17 @@
   width: 40%;
 }
 
-.center-lines{
+.center-lines {
   padding: 10px 0;
   text-align: center;
 }
+
 .mat-form-field-appearance-legacy .mat-form-field-label {
-  color:#F48FB1!important;
+  color: #F48FB1 !important;
 }
+
 .mat-form-field-appearance-legacy .mat-form-field-label {
-  color:#F48FB1;
+  color: #F48FB1;
 }
 
 
@@ -115,20 +123,21 @@
   background-size: cover;
 }
 
-.margin-top{
+.margin-top {
   margin-top: 2%;
 }
 
 
-.black{
+.black {
   color: #1a1a1a;
 }
+
 .mat-card {
   background-color: palegoldenrod;
   color: #D81B60;
 }
 
 .mat-card-subtitle {
-  color:#F48FB1;
+  color: #F48FB1;
 }
 

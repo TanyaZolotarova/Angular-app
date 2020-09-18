@@ -51,13 +51,15 @@ const items = (state = null, action: UsersActionsUnion) => {
 
 const active = (state = null, action: UsersActionsUnion) => {
   switch (action.type) {
-    case UsersActionsTypes.LOGIN_SUCCESS:
-      // case UsersActionsTypes.REGISTER_SUCCESS:
+    case UsersActionsTypes.USERS_UPDATE_SUCCESS:
       console.log('LOGIN_SUCCESS', action.payload);
+      return action.payload;
+    case UsersActionsTypes.LOGIN_SUCCESS:
       return action.payload.user;
     case UsersActionsTypes.LOGOUT:
     // case UsersActionsTypes.LOGIN_REQUEST:
-       case UsersActionsTypes.REGISTER_REQUEST:
+    case UsersActionsTypes.REGISTER_REQUEST:
+    case UsersActionsTypes.USERS_UPDATE_REQUEST:
       return null;
     default:
       return state;

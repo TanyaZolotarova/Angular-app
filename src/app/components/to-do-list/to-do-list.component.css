@@ -127,8 +127,12 @@ border-bottom: 1px solid #fff;
   border: 1px solid plum;
 }
 
+.input-todo{
+  color:#c2185b;
+}
 
-
-
+.form-todo{
+  width: 305px;
+}
 
 
